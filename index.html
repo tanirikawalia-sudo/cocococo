@@ -8,57 +8,100 @@
 body {
   margin: 0;
   height: 100vh;
-  background: #f2dce3;
+  background: linear-gradient(135deg, #f2dce3, #f8c8d8);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Times New Roman", Georgia, serif;
+  overflow: hidden;
 }
 
-/* Card */
+/* floating hearts */
+.heart {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 20px;
+  animation: floatUp 8s linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+}
+
+/* card */
 .card {
   width: 80vw;
-  max-width: 650px;
+  max-width: 680px;
   height: 80vh;
-  max-height: 520px;
+  max-height: 540px;
   background: #f7c6cc;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+  padding: 35px;
   text-align: center;
   position: relative;
+  animation: cardFloat 4s ease-in-out infinite;
 }
 
-/* Pages */
+@keyframes cardFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* pages */
 .page {
   display: none;
   height: 100%;
+  animation: fade 0.8s ease;
 }
 
 .page.active {
   display: block;
 }
 
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 h1 {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 p {
   font-size: 20px;
   line-height: 1.6;
-  margin: 0 10px;
+  margin: 20px;
 }
 
-/* Images */
+/* cute character */
+.character {
+  font-size: 50px;
+  animation: wave 2s infinite;
+}
+
+@keyframes wave {
+  0%,100% { transform: rotate(0deg); }
+  50% { transform: rotate(8deg); }
+}
+
+/* images */
 img {
   max-width: 100%;
   max-height: 260px;
-  border-radius: 15px;
+  border-radius: 16px;
   margin: 20px 0;
   object-fit: contain;
 }
 
-/* Buttons */
+/* buttons */
 .buttons {
   position: absolute;
   bottom: 20px;
@@ -73,7 +116,7 @@ button {
   background: #7a1f2b;
   color: white;
   border: none;
-  padding: 10px 22px;
+  padding: 10px 24px;
   border-radius: 20px;
   font-family: inherit;
   font-size: 16px;
@@ -84,13 +127,26 @@ button {
 
 <body>
 
+<!-- floating hearts -->
+<script>
+for (let i = 0; i < 20; i++) {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💗";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = 6 + Math.random() * 6 + "s";
+  document.body.appendChild(h);
+}
+</script>
+
 <div class="card">
 
-  <!-- PAGE 1: COVER -->
+  <!-- PAGE 1 -->
   <div class="page active">
+    <div class="character">🧸💗</div>
     <h1>Happy New Year</h1>
-    <h1>C O C O ❤️</h1>
-    <p style="margin-top:20px;">Tap next</p>
+    <h1>C O C O</h1>
+    <p>Tap next ✨</p>
   </div>
 
   <!-- PAGE 2 -->
@@ -129,17 +185,16 @@ button {
     </p>
   </div>
 
-  <!-- PAGE 6: FINAL -->
+  <!-- PAGE 6 -->
   <div class="page">
+    <div class="character">🥹❤️</div>
     <p>
       Here’s to more laughter, more growth, more memories, and more us.<br><br>
-      And somewhere in all of this…<br><br>
       <strong>I love you the most.</strong><br><br>
       <em>Always you.</em>
     </p>
   </div>
 
-  <!-- Navigation -->
   <div class="buttons">
     <button onclick="prevPage()">Back</button>
     <button onclick="nextPage()">Next</button>
