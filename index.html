@@ -1,188 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy New Year COCO 💗</title>
+<meta charset="UTF-8">
+<title>Happy New Year COCO 💗</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
-      font-family: 'Quicksand', sans-serif;
-      overflow: hidden;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
+  font-family: 'Quicksand', sans-serif;
+  overflow: hidden;
+}
 
-    /* sparkles */
-    .sparkle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: float 6s infinite ease-in-out;
-    }
+/* sparkles */
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: float 6s infinite;
+}
 
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 0.8; }
-      100% { transform: translateY(-120vh); opacity: 0; }
-    }
+@keyframes float {
+  from { transform: translateY(0); opacity: 0.7; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
 
-    .card {
-      width: 340px;
-      height: 460px;
-      background: white;
-      border-radius: 25px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: transform 1s;
-    }
+/* card */
+.scene {
+  perspective: 1200px;
+}
 
-    .front, .inside {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      padding: 30px;
-      text-align: center;
-    }
+.card {
+  width: 340px;
+  height: 460px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.2s;
+  cursor: pointer;
+}
 
-    .front {
-      background: #fff0f6;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 20px;
-      z-index: 2;
-    }
+.card.open {
+  transform: rotateY(180deg);
+}
 
-    .front h1 {
-      font-family: 'Pacifico', cursive;
-      color: #ff5d8f;
-      font-size: 32px;
-    }
+/* front & inside */
+.front, .inside {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+  backface-visibility: hidden;
+  padding: 30px;
+  text-align: center;
+}
 
-    .front p {
-      color: #666;
-      font-size: 14px;
-    }
+.front {
+  background: #fff0f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
 
-    .inside {
-      background: white;
-      opacity: 0;
-      transition: opacity 1s;
-      z-index: 1;
-    }
+.front h1 {
+  font-family: 'Pacifico', cursive;
+  color: #ff5d8f;
+  font-size: 32px;
+}
 
-    .card.open .inside {
-      opacity: 1;
-    }
+.front p {
+  color: #666;
+  font-size: 14px;
+}
 
-    .heart {
-      font-size: 70px;
-      margin-top: 20px;
-      animation: pop 1s infinite alternate;
-    }
+.inside {
+  background: white;
+  transform: rotateY(180deg);
+}
 
-    @keyframes pop {
-      from { transform: scale(1); }
-      to { transform: scale(1.2); }
-    }
+.heart {
+  font-size: 70px;
+  margin-top: 10px;
+  animation: pop 1s infinite alternate;
+}
 
-    .message {
-      margin-top: 20px;
-      font-size: 15px;
-      line-height: 1.6;
-      color: #444;
-    }
+@keyframes pop {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
 
-    .footer {
-      margin-top: 25px;
-      color: #ff5d8f;
-      font-weight: 600;
-    }
+.message {
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  min-height: 160px;
+}
 
-    .fade-out {
-      animation: fadeOut 2s forwards;
-    }
+.footer {
+  margin-top: 20px;
+  color: #ff5d8f;
+  font-weight: 600;
+}
 
-    @keyframes fadeOut {
-      to { opacity: 0; transform: scale(0.9); }
-    }
-  </style>
+.close {
+  margin-top: 15px;
+  background: #ff5d8f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: inherit;
+}
+</style>
 </head>
+
 <body>
 
-<!-- background music -->
-<audio id="bgm" autoplay loop>
+<audio id="bgm" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2b63c19f30.mp3" type="audio/mp3">
 </audio>
 
-<!-- sparkles -->
-<script>
-  for (let i = 0; i < 30; i++) {
-    let s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = Math.random() * 100 + 'vw';
-    s.style.animationDelay = Math.random() * 6 + 's';
-    s.style.animationDuration = (4 + Math.random() * 4) + 's';
-    document.body.appendChild(s);
-  }
-</script>
-
-<div class="card" onclick="openCard()">
-  <div class="front">
-    <h1>Happy New Year</h1>
-    <h1>C O C O ✨</h1>
-    <p>tap to open 💌</p>
-  </div>
-
-  <div class="inside">
-    <div class="heart">💖</div>
-    <div class="message">
-      I love you and I cannot wait to experience new things with you in the upcoming year.
-      <br><br>
-      A very happy birthday month to you as well.
-      <br><br>
-      I’m very excited for you and I love you the most.
+<div class="scene">
+  <div class="card" id="card">
+    <div class="front">
+      <h1>Happy New Year</h1>
+      <h1>C O C O ✨</h1>
+      <p>tap to open 💌</p>
     </div>
-    <div class="footer">always yours 💗</div>
+
+    <div class="inside">
+      <div class="heart">💖</div>
+      <div class="message" id="text"></div>
+      <div class="footer">always yours 💗</div>
+      <button class="close" onclick="closeCard(event)">Close</button>
+    </div>
   </div>
 </div>
 
 <script>
-  function openCard() {
-    const card = document.querySelector('.card');
-    card.classList.add('open');
+const message = `I love you and I cannot wait to experience new things with you in the upcoming year.
 
-    // confetti hearts
-    for (let i = 0; i < 20; i++) {
-      let heart = document.createElement('div');
-      heart.innerHTML = '💗';
-      heart.style.position = 'absolute';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.top = '100vh';
-      heart.style.fontSize = '20px';
-      heart.style.animation = 'float 5s linear forwards';
-      document.body.appendChild(heart);
+A very happy birthday month to you as well.
 
-      setTimeout(() => heart.remove(), 5000);
-    }
+I’m very excited for you and I love you the most.`;
 
-    // close + fade end
-    setTimeout(() => {
-      card.classList.add('fade-out');
-    }, 10000);
+let index = 0;
+
+function typeText() {
+  if (index < message.length) {
+    document.getElementById("text").innerHTML += message[index] === "\n" ? "<br>" : message[index];
+    index++;
+    setTimeout(typeText, 40);
   }
+}
+
+document.getElementById("card").addEventListener("click", () => {
+  const card = document.getElementById("card");
+  if (!card.classList.contains("open")) {
+    card.classList.add("open");
+    document.getElementById("bgm").play();
+    typeText();
+
+    for (let i = 0; i < 25; i++) {
+      let s = document.createElement("div");
+      s.className = "sparkle";
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 6000);
+    }
+  }
+});
+
+function closeCard(e) {
+  e.stopPropagation();
+  document.getElementById("card").classList.remove("open");
+  document.getElementById("text").innerHTML = "";
+  index = 0;
+}
 </script>
 
 </body>
