@@ -8,7 +8,7 @@
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #f2dce3, #f8c8d8);
+  background: radial-gradient(circle at top, #f9c5d1, #f2a6b3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,110 +16,95 @@ body {
   overflow: hidden;
 }
 
-/* floating hearts */
-.heart {
+/* floating background hearts */
+.bg-heart {
   position: absolute;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 20px;
-  animation: floatUp 8s linear infinite;
+  font-size: 18px;
+  opacity: 0.6;
+  animation: rise 10s linear infinite;
 }
 
-@keyframes floatUp {
-  from {
-    transform: translateY(100vh);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-10vh);
-    opacity: 0;
-  }
+@keyframes rise {
+  from { transform: translateY(110vh); opacity: 0.6; }
+  to { transform: translateY(-10vh); opacity: 0; }
 }
 
 /* card */
 .card {
-  width: 80vw;
-  max-width: 680px;
-  height: 80vh;
-  max-height: 540px;
-  background: #f7c6cc;
-  border-radius: 24px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-  padding: 35px;
+  width: 82vw;
+  max-width: 700px;
+  height: 82vh;
+  max-height: 560px;
+  background: #ffe3ea;
+  border-radius: 28px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+  padding: 40px;
   text-align: center;
   position: relative;
-  animation: cardFloat 4s ease-in-out infinite;
+  animation: breathe 5s ease-in-out infinite;
 }
 
-@keyframes cardFloat {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+@keyframes breathe {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
 }
 
 /* pages */
 .page {
   display: none;
   height: 100%;
-  animation: fade 0.8s ease;
+  animation: pageFade 1s ease;
 }
 
 .page.active {
   display: block;
 }
 
-@keyframes fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* characters */
+.character {
+  font-size: 60px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 h1 {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 p {
-  font-size: 20px;
-  line-height: 1.6;
-  margin: 20px;
-}
-
-/* cute character */
-.character {
-  font-size: 50px;
-  animation: wave 2s infinite;
-}
-
-@keyframes wave {
-  0%,100% { transform: rotate(0deg); }
-  50% { transform: rotate(8deg); }
-}
-
-/* images */
-img {
-  max-width: 100%;
-  max-height: 260px;
-  border-radius: 16px;
-  margin: 20px 0;
-  object-fit: contain;
+  font-size: 22px;
+  line-height: 1.7;
+  margin: 25px;
 }
 
 /* buttons */
 .buttons {
   position: absolute;
-  bottom: 20px;
+  bottom: 25px;
   width: 100%;
   left: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 40px;
+  padding: 0 50px;
 }
 
 button {
-  background: #7a1f2b;
+  background: #8b1e3f;
   color: white;
   border: none;
-  padding: 10px 24px;
-  border-radius: 20px;
+  padding: 12px 26px;
+  border-radius: 25px;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 17px;
   cursor: pointer;
 }
 </style>
@@ -127,14 +112,13 @@ button {
 
 <body>
 
-<!-- floating hearts -->
 <script>
-for (let i = 0; i < 20; i++) {
-  const h = document.createElement("div");
-  h.className = "heart";
+for (let i = 0; i < 25; i++) {
+  let h = document.createElement("div");
+  h.className = "bg-heart";
   h.innerHTML = "💗";
   h.style.left = Math.random() * 100 + "vw";
-  h.style.animationDuration = 6 + Math.random() * 6 + "s";
+  h.style.animationDuration = 6 + Math.random() * 8 + "s";
   document.body.appendChild(h);
 }
 </script>
@@ -143,55 +127,59 @@ for (let i = 0; i < 20; i++) {
 
   <!-- PAGE 1 -->
   <div class="page active">
-    <div class="character">🧸💗</div>
+    <div class="character">🧸</div>
     <h1>Happy New Year</h1>
     <h1>C O C O</h1>
-    <p>Tap next ✨</p>
+    <p>This is for you 💗</p>
   </div>
 
   <!-- PAGE 2 -->
   <div class="page">
-    <img src="pic1.jpg" alt="">
+    <div class="character">✨</div>
     <p>
-      Before the year changes, I just want you to know this —  
-      you became my favourite part of this year.
+      Before the year changes,<br>
+      I just want you to know this.
     </p>
   </div>
 
   <!-- PAGE 3 -->
-  <div class="page">
-    <img src="pic2.jpg" alt="">
-    <p>
-      This year taught me how special you are to me,  
-      and I didn’t even realise when that happened.
-    </p>
-  </div>
+<div class="page">
+  <div class="character">🥹</div>
+  <img src="pic1.jpg" alt="">
+  <p>
+    Somehow, without trying,<br>
+    you became my favourite part of this year.
+  </p>
+</div>
 
-  <!-- PAGE 4 -->
-  <div class="page">
-    <img src="pic3.jpg" alt="">
-    <p>
-      I love you, and I cannot wait to experience new things with you —  
-      the small moments, the big dreams, and everything in between.
-    </p>
-  </div>
+<!-- PAGE 4 -->
+<div class="page">
+  <div class="character">💞</div>
+  <img src="pic2.jpg" alt="">
+  <p>
+    I want to experience new things with you —<br>
+    the quiet moments, the chaos, everything.
+  </p>
+</div>
 
-  <!-- PAGE 5 -->
-  <div class="page">
-    <img src="pic4.jpg" alt="">
-    <p>
-      A very happy birthday month to you.  
-      This month feels extra special because it celebrates you.
-    </p>
-  </div>
+<!-- PAGE 5 -->
+<div class="page">
+  <div class="character">🎂</div>
+  <img src="pic3.jpg" alt="">
+  <p>
+    It’s your birthday month too,<br>
+    and I’m genuinely so excited for you.
+  </p>
+</div>
 
   <!-- PAGE 6 -->
   <div class="page">
-    <div class="character">🥹❤️</div>
+    <div class="character">❤️</div>
     <p>
-      Here’s to more laughter, more growth, more memories, and more us.<br><br>
-      <strong>I love you the most.</strong><br><br>
-      <em>Always you.</em>
+      Here’s to more memories,<br>
+      more laughter,<br>
+      and more us.<br><br>
+      <strong>I love you the most.</strong>
     </p>
   </div>
 
@@ -206,9 +194,9 @@ for (let i = 0; i < 20; i++) {
 let current = 0;
 const pages = document.querySelectorAll(".page");
 
-function showPage(index) {
+function showPage(i) {
   pages.forEach(p => p.classList.remove("active"));
-  pages[index].classList.add("active");
+  pages[i].classList.add("active");
 }
 
 function nextPage() {
