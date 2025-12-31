@@ -2,183 +2,108 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy New Year COCO 💗</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<title>Happy New Year COCO ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
-
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
-  font-family: 'Quicksand', sans-serif;
+  background: #f2dce3;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  font-family: "Times New Roman", Georgia, serif;
 }
 
-/* sparkles */
-.sparkle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.7;
-  animation: float 6s linear infinite;
-}
-
-@keyframes float {
-  from { transform: translateY(0); opacity: 0.7; }
-  to { transform: translateY(-120vh); opacity: 0; }
+/* card container */
+.card {
+  width: 70vw;
+  max-width: 600px;
+  height: 70vh;
+  max-height: 500px;
+  perspective: 1000px;
+  cursor: pointer;
 }
 
 /* card */
-.card {
-  width: 340px;
-  height: 460px;
-  background: #fff0f6;
-  border-radius: 25px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-  padding: 30px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.8s ease;
+.card-inner {
+  width: 100%;
+  height: 100%;
   position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
 }
 
-.card.open {
-  background: #ffffff;
+/* flip */
+.card.open .card-inner {
+  transform: rotateY(180deg);
 }
 
-/* front */
-.front h1 {
-  font-family: 'Pacifico', cursive;
-  color: #ff5d8f;
-  font-size: 32px;
-}
-
-.front p {
-  color: #666;
-  font-size: 14px;
-}
-
-/* inside */
-.inside {
-  display: none;
-}
-
-.card.open .front {
-  display: none;
-}
-
-.card.open .inside {
-  display: block;
-}
-
-.heart {
-  font-size: 70px;
-  animation: pop 1s infinite alternate;
-  margin-top: 10px;
-}
-
-@keyframes pop {
-  from { transform: scale(1); }
-  to { transform: scale(1.2); }
-}
-
-.message {
-  margin-top: 20px;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #444;
-  min-height: 160px;
-}
-
-.footer {
-  margin-top: 20px;
-  color: #ff5d8f;
-  font-weight: 600;
-}
-
-button {
-  margin-top: 15px;
-  background: #ff5d8f;
-  color: white;
-  border: none;
-  padding: 8px 18px;
+/* front & back */
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
   border-radius: 20px;
-  cursor: pointer;
-  font-family: inherit;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  backface-visibility: hidden;
+}
+
+.front {
+  font-size: 38px;
+}
+
+.back {
+  transform: rotateY(180deg);
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+small {
+  font-size: 16px;
+  color: #666;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgm" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2b63c19f30.mp3" type="audio/mp3">
-</audio>
+<div class="card" onclick="flipCard()">
+  <div class="card-inner">
 
-<div class="card" id="card">
-  <div class="front">
-    <h1>Happy New Year</h1>
-    <h1>C O C O ✨</h1>
-    <p>tap to open 💌</p>
-  </div>
+    <div class="card-face front">
+      <div>
+        <h1>Happy New Year</h1>
+        <h1>C O C O</h1>
+        <small>tap to open</small>
+      </div>
+    </div>
 
-  <div class="inside">
-    <div class="heart">💖</div>
-    <div class="message" id="text"></div>
-    <div class="footer">always yours 💗</div>
-    <button onclick="closeCard(event)">Close</button>
+    <div class="card-face back">
+      <div>
+        ❤️<br><br>
+        I love you and I cannot wait to experience new things with you in the upcoming year.<br><br>
+        A very happy birthday month to you as well.<br><br>
+        I’m very excited for you and I love you the most.
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-const message = `I love you and I cannot wait to experience new things with you in the upcoming year.
-
-A very happy birthday month to you as well.
-
-I’m very excited for you and I love you the most.`;
-
-let i = 0;
-
-function typeText() {
-  if (i < message.length) {
-    document.getElementById("text").innerHTML +=
-      message[i] === "\n" ? "<br>" : message[i];
-    i++;
-    setTimeout(typeText, 40);
-  }
-}
-
-document.getElementById("card").onclick = () => {
-  const card = document.getElementById("card");
-  if (!card.classList.contains("open")) {
-    card.classList.add("open");
-    document.getElementById("bgm").play();
-    typeText();
-
-    for (let j = 0; j < 25; j++) {
-      let s = document.createElement("div");
-      s.className = "sparkle";
-      s.style.left = Math.random() * 100 + "vw";
-      s.style.animationDuration = 4 + Math.random() * 4 + "s";
-      document.body.appendChild(s);
-      setTimeout(() => s.remove(), 6000);
-    }
-  }
-};
-
-function closeCard(e) {
-  e.stopPropagation();
-  document.getElementById("card").classList.remove("open");
-  document.getElementById("text").innerHTML = "";
-  i = 0;
+function flipCard() {
+  document.querySelector(".card").classList.toggle("open");
 }
 </script>
 
