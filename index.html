@@ -12,11 +12,11 @@
 body {
   margin: 0;
   height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
+  font-family: 'Quicksand', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
-  font-family: 'Quicksand', sans-serif;
   overflow: hidden;
 }
 
@@ -28,7 +28,7 @@ body {
   background: white;
   border-radius: 50%;
   opacity: 0.7;
-  animation: float 6s infinite;
+  animation: float 6s linear infinite;
 }
 
 @keyframes float {
@@ -37,43 +37,24 @@ body {
 }
 
 /* card */
-.scene {
-  perspective: 1200px;
-}
-
 .card {
   width: 340px;
   height: 460px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1.2s;
+  background: #fff0f6;
+  border-radius: 25px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+  padding: 30px;
+  text-align: center;
   cursor: pointer;
+  transition: all 0.8s ease;
+  position: relative;
 }
 
 .card.open {
-  transform: rotateY(180deg);
+  background: #ffffff;
 }
 
-/* front & inside */
-.front, .inside {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 25px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-  backface-visibility: hidden;
-  padding: 30px;
-  text-align: center;
-}
-
-.front {
-  background: #fff0f6;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-}
-
+/* front */
 .front h1 {
   font-family: 'Pacifico', cursive;
   color: #ff5d8f;
@@ -85,15 +66,23 @@ body {
   font-size: 14px;
 }
 
+/* inside */
 .inside {
-  background: white;
-  transform: rotateY(180deg);
+  display: none;
+}
+
+.card.open .front {
+  display: none;
+}
+
+.card.open .inside {
+  display: block;
 }
 
 .heart {
   font-size: 70px;
-  margin-top: 10px;
   animation: pop 1s infinite alternate;
+  margin-top: 10px;
 }
 
 @keyframes pop {
@@ -115,12 +104,12 @@ body {
   font-weight: 600;
 }
 
-.close {
+button {
   margin-top: 15px;
   background: #ff5d8f;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 20px;
   cursor: pointer;
   font-family: inherit;
@@ -134,20 +123,18 @@ body {
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2b63c19f30.mp3" type="audio/mp3">
 </audio>
 
-<div class="scene">
-  <div class="card" id="card">
-    <div class="front">
-      <h1>Happy New Year</h1>
-      <h1>C O C O ✨</h1>
-      <p>tap to open 💌</p>
-    </div>
+<div class="card" id="card">
+  <div class="front">
+    <h1>Happy New Year</h1>
+    <h1>C O C O ✨</h1>
+    <p>tap to open 💌</p>
+  </div>
 
-    <div class="inside">
-      <div class="heart">💖</div>
-      <div class="message" id="text"></div>
-      <div class="footer">always yours 💗</div>
-      <button class="close" onclick="closeCard(event)">Close</button>
-    </div>
+  <div class="inside">
+    <div class="heart">💖</div>
+    <div class="message" id="text"></div>
+    <div class="footer">always yours 💗</div>
+    <button onclick="closeCard(event)">Close</button>
   </div>
 </div>
 
@@ -158,24 +145,25 @@ A very happy birthday month to you as well.
 
 I’m very excited for you and I love you the most.`;
 
-let index = 0;
+let i = 0;
 
 function typeText() {
-  if (index < message.length) {
-    document.getElementById("text").innerHTML += message[index] === "\n" ? "<br>" : message[index];
-    index++;
+  if (i < message.length) {
+    document.getElementById("text").innerHTML +=
+      message[i] === "\n" ? "<br>" : message[i];
+    i++;
     setTimeout(typeText, 40);
   }
 }
 
-document.getElementById("card").addEventListener("click", () => {
+document.getElementById("card").onclick = () => {
   const card = document.getElementById("card");
   if (!card.classList.contains("open")) {
     card.classList.add("open");
     document.getElementById("bgm").play();
     typeText();
 
-    for (let i = 0; i < 25; i++) {
+    for (let j = 0; j < 25; j++) {
       let s = document.createElement("div");
       s.className = "sparkle";
       s.style.left = Math.random() * 100 + "vw";
@@ -184,13 +172,13 @@ document.getElementById("card").addEventListener("click", () => {
       setTimeout(() => s.remove(), 6000);
     }
   }
-});
+};
 
 function closeCard(e) {
   e.stopPropagation();
   document.getElementById("card").classList.remove("open");
   document.getElementById("text").innerHTML = "";
-  index = 0;
+  i = 0;
 }
 </script>
 
