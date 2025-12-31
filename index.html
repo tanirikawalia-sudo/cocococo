@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy New Year COCO ❤️</title>
+<title>For You ❤️</title>
 
 <style>
 body {
@@ -15,101 +15,161 @@ body {
   font-family: "Times New Roman", Georgia, serif;
 }
 
-/* card container */
+/* Card */
 .card {
-  width: 70vw;
-  max-width: 600px;
-  height: 70vh;
-  max-height: 500px;
-  perspective: 1000px;
-  cursor: pointer;
-}
-
-/* card */
-.card-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-/* flip */
-.card.open .card-inner {
-  transform: rotateY(180deg);
-}
-
-/* front & back */
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #f7c6cc
+  width: 80vw;
+  max-width: 650px;
+  height: 80vh;
+  max-height: 520px;
+  background: #f7c6cc;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 30px;
   text-align: center;
-  padding: 40px;
-  backface-visibility: hidden;
+  position: relative;
 }
 
-.front {
-  font-size: 38px;
-  .front h1 {
-    color: #7a1f2b; 
+/* Pages */
+.page {
+  display: none;
+  height: 100%;
 }
 
-.back {
-  color: #5a1a22;
-  transform: rotateY(180deg);
-  font-size: 20px;
-  line-height: 1.6;
+.page.active {
+  display: block;
 }
 
 h1 {
-  margin-bottom: 10px;
+  margin-top: 40px;
 }
 
-small {
+p {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0 10px;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 15px;
+  margin: 20px 0;
+  object-fit: contain;
+}
+
+/* Buttons */
+.buttons {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+button {
+  background: #7a1f2b;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 20px;
+  font-family: inherit;
   font-size: 16px;
-  color: #666;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card" onclick="flipCard()">
-  <div class="card-inner">
+<div class="card">
 
-    <div class="card-face front">
-      <div>
-        <h1>Happy New Year</h1>
-        <h1>C O C O</h1>
-        <small>tap to open</small>
-      </div>
-    </div>
-
-    <div class="card-face back">
-      <div>
-        ❤️<br><br>
-        I love you and I cannot wait to experience new things with you in the upcoming year.<br><br>
-        A very happy birthday month to you as well.<br><br>
-        I’m very excited for you and I love you the most.
-      </div>
-    </div>
-
+  <!-- PAGE 1: COVER -->
+  <div class="page active">
+    <h1>Happy New Year</h1>
+    <h1>C O C O ❤️</h1>
+    <p style="margin-top:20px;">Tap next</p>
   </div>
+
+  <!-- PAGE 2 -->
+  <div class="page">
+    <img src="pic1.jpg" alt="">
+    <p>
+      Before the year changes, I just want you to know this —  
+      you became my favourite part of this year.
+    </p>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page">
+    <img src="pic2.jpg" alt="">
+    <p>
+      This year taught me how special you are to me,  
+      and I didn’t even realise when that happened.
+    </p>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="page">
+    <img src="pic3.jpg" alt="">
+    <p>
+      I love you, and I cannot wait to experience new things with you —  
+      the small moments, the big dreams, and everything in between.
+    </p>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div class="page">
+    <img src="pic4.jpg" alt="">
+    <p>
+      A very happy birthday month to you.  
+      This month feels extra special because it celebrates you.
+    </p>
+  </div>
+
+  <!-- PAGE 6: FINAL -->
+  <div class="page">
+    <p>
+      Here’s to more laughter, more growth, more memories, and more us.<br><br>
+      And somewhere in all of this…<br><br>
+      <strong>I love you the most.</strong><br><br>
+      <em>Always you.</em>
+    </p>
+  </div>
+
+  <!-- Navigation -->
+  <div class="buttons">
+    <button onclick="prevPage()">Back</button>
+    <button onclick="nextPage()">Next</button>
+  </div>
+
 </div>
 
 <script>
-function flipCard() {
-  document.querySelector(".card").classList.toggle("open");
+let current = 0;
+const pages = document.querySelectorAll(".page");
+
+function showPage(index) {
+  pages.forEach(p => p.classList.remove("active"));
+  pages[index].classList.add("active");
+}
+
+function nextPage() {
+  if (current < pages.length - 1) {
+    current++;
+    showPage(current);
+  }
+}
+
+function prevPage() {
+  if (current > 0) {
+    current--;
+    showPage(current);
+  }
 }
 </script>
 
 </body>
 </html>
-
